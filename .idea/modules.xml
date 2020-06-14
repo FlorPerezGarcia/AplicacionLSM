@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AplicacionLSM.iml" filepath="$PROJECT_DIR$/AplicacionLSM.iml" group="AplicacionLSM" />
+      <module fileurl="file://$PROJECT_DIR$/PT2.iml" filepath="$PROJECT_DIR$/PT2.iml" group="PT2" />
+      <module fileurl="file://$PROJECT_DIR$/app/PT2-app.iml" filepath="$PROJECT_DIR$/app/PT2-app.iml" group="PT2/app" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="AplicacionLSM/app" />
     </modules>
   </component>
