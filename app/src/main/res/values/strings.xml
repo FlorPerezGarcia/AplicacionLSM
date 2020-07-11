@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Manos Con Voz</string>
+    <string name="app_name">Traductor</string>
     <string name="action_settings">Configuración</string>
     <string name="autor">Por Citlalli y Flor</string>
     <string name="Enviar">Enviar</string>

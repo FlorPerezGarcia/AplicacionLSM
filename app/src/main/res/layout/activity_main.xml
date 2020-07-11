@@ -1,106 +1,73 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/White"
+    android:gravity="center"
     android:orientation="vertical"
-    android:background="@color/Pink"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2" >
-
-        <Button
-            android:id="@+id/btnBluetooth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:backgroundTint="@color/DarkMagenta"
-            android:text=""
-            android:textColor="@color/White" />
-    </RelativeLayout>
+    tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/tituloDispositivos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:text="Lengua de Señas Mexicana"
+        android:textColor="@color/DarkViolet"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <EditText
         android:id="@+id/tvMensaje"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="" />
+        android:layout_marginTop="100dp"
+        android:fontFamily="sans-serif"
+        android:paddingTop="30dp"
+        android:paddingLeft="39dp"
+        android:paddingRight="30dp"
+        android:paddingBottom="30dp"
+        android:textSize="16sp"
+        android:background="@drawable/rount_textview" />
 
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="wrap_content" android:orientation="horizontal"
+        android:layout_width="fill_parent" android:layout_gravity="center_vertical">
+        android:background="@color/White"
 
-    <ListView
-        android:id="@+id/lvDispositivos"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="7">
-    </ListView>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/btnBuscarDispositivo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/DarkMagenta"
-            android:text="@string/BuscarDispositivo"
-            android:textColor="@color/White" />
-
-        <Button
-            android:id="@+id/btnConectarDispositivo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/DarkMagenta"
-            android:text="@string/MostrarEnlazados"
-            android:textColor="@color/White" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/tvConexion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/SinConexion" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <Button
-            android:id="@+id/btnEnviar"
+        <ImageButton
+            android:layout_marginTop="100dp"
+            android:id="@+id/btnBorrar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/DarkMagenta"
-            android:text="@string/Enviar"
-            android:textColor="@color/White" />
+            android:layout_weight="1.0"
+            android:layout_alignBaseline="@id/btnReproducir"
+            android:src="@mipmap/delete"/>
 
-        <EditText
+        <ImageButton
+            android:layout_marginTop="100dp"
+            android:id="@+id/btnReproducir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1.0"
+            android:src="@mipmap/audio"/>
+
+        <ImageButton
+            android:layout_marginTop="100dp"
+            android:id="@+id/btnSalir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_baseline_exit_to_app_24"/>
+    </RelativeLayout>
+        <!--<TextView
             android:id="@+id/txtMensaje"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10" >
-
+            android:layout_weight="1">
             <requestFocus />
-        </EditText>
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btnSalir"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/DarkMagenta"
-        android:text="@string/Salir"
-        android:textColor="@color/White" />
-
+        </TextView>-->
 </LinearLayout>

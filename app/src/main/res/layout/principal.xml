@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:layout_constraintStart_toEndOf="@+id/mensajebienvenida"
-        app:srcCompat="@mipmap/background"
+        app:srcCompat="@mipmap/logo"
         />
     <Space
         android:layout_width="match_parent"
@@ -41,9 +41,12 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:text="@string/autor"
-        android:background="@color/White"
+        android:background="@drawable/round_pink"
         android:textColor="@color/Indigo"
-        android:textSize="20sp"
+        android:textSize="14sp"
         android:textStyle="bold"
-        />
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"/>
 </LinearLayout>

@@ -14,8 +14,7 @@ public class BluetoothDeviceArrayAdapter extends ArrayAdapter{
     private List<BluetoothDevice> deviceList;	// Contendra el listado de dispositivos
     private Context context;					// Contexto activo
 
-    public BluetoothDeviceArrayAdapter(Context context, int textViewResourceId,
-                                       List<BluetoothDevice> objects) {
+    public BluetoothDeviceArrayAdapter(Context context, int textViewResourceId, List<BluetoothDevice> objects) {
         super(context, textViewResourceId, objects);
         this.deviceList = objects;
         this.context = context;
