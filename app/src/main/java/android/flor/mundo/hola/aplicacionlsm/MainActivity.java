@@ -92,18 +92,6 @@ public class MainActivity extends AppCompatActivity {
     btAdapter = BluetoothAdapter.getDefaultAdapter();
     VerificarEstadoBT();
 
-    /*IdDesconectar.setOnClickListener(new View.OnClickListener() {
-      public void onClick(View v) {
-        if (btSocket!=null)
-        {
-          try {btSocket.close();}
-          catch (IOException e)
-          { Toast.makeText(getBaseContext(), "Error", Toast.LENGTH_SHORT).show();;}
-        }
-        finish();
-      }
-    });*/
-
     IdDesconectar.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -122,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
       {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-          //finish();
           Intent homeIntent = new Intent(Intent.ACTION_MAIN);
           homeIntent.addCategory( Intent.CATEGORY_HOME );
           homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -134,11 +121,6 @@ public class MainActivity extends AppCompatActivity {
       .show();
   }
 
-  private void speak(){
-    String text = IdBufferIn.getText().toString();
-      tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
-  }
-
   @Override
   protected void onDestroy() {
     if(tts != null){
@@ -148,17 +130,14 @@ public class MainActivity extends AppCompatActivity {
     super.onDestroy();
   }
 
-  private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException
-  {
+  private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException {
     return device.createRfcommSocketToServiceRecord(BTMODULEUUID);
   }
 
   @Override
-  public void onResume()
-  {
+  public void onResume() {
     super.onResume();
     Intent intent = getIntent();
-
     address = intent.getStringExtra(ListDevices.EXTRA_DEVICE_ADDRESS);
     BluetoothDevice device = btAdapter.getRemoteDevice(address);
 
@@ -184,8 +163,7 @@ public class MainActivity extends AppCompatActivity {
   }
 
   @Override
-  public void onPause()
-  {
+  public void onPause() {
     super.onPause();
     try
     {
@@ -206,8 +184,7 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
-  private class ConnectedThread extends Thread
-  {
+  private class ConnectedThread extends Thread {
     private final InputStream mmInStream;
     private final OutputStream mmOutStream;
 
