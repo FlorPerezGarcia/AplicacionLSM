@@ -7,6 +7,14 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/listView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" />
+
     <TextView
         android:id="@+id/tituloDispositivos"
         android:layout_width="wrap_content"
@@ -43,6 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
             android:layout_alignBaseline="@id/btnReproducir"
+            android:background="#00000000"
             android:src="@mipmap/delete"/>
 
         <ImageButton
@@ -52,6 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_weight="1.0"
+            android:background="#00000000"
             android:src="@mipmap/audio"/>
 
         <ImageButton
@@ -61,6 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
             android:layout_alignParentRight="true"
+            android:background="#00000000"
             android:src="@drawable/ic_baseline_exit_to_app_24"/>
     </RelativeLayout>
         <!--<TextView

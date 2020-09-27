@@ -30,8 +30,7 @@ public class ListDevices extends AppCompatActivity {
   }
 
   @Override
-  public void onResume()
-  {
+  public void onResume() {
     super.onResume();
     VerificarEstadoBT();
     mPairedDevicesArrayAdapter = new ArrayAdapter(this, R.layout.nombre_dispositivo);
@@ -54,7 +53,6 @@ public class ListDevices extends AppCompatActivity {
 
   private AdapterView.OnItemClickListener mDeviceClickListener = new AdapterView.OnItemClickListener() {
     public void onItemClick(AdapterView av, View v, int arg2, long arg3) {
-
       String info = ((TextView) v).getText().toString();
       String address = info.substring(info.length() - 17);
 
