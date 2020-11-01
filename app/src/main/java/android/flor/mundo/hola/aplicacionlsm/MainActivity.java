@@ -95,30 +95,33 @@ public class MainActivity extends AppCompatActivity {
         if (msg.what == handlerState) {
           String readMessage = (String) msg.obj;
           DataStringIN.append(readMessage);
-          //Log.i("DataStringIN", DataStringIN.toString());
-          if(DataStringIN.toString() == "&"){
-            dataMessageFull.append(" ");
-          }
-          else{
-            int endOfLineIndex = DataStringIN.indexOf("#");
-            float[] x = new float[330];
-            if (endOfLineIndex > 0) {
+          int endOfLineIndex = DataStringIN.indexOf("#");
+          float[] x = new float[330];
+
+          if (endOfLineIndex > 0) {
               String dataInPrint = DataStringIN.substring(0, endOfLineIndex);
               Log.i("dataInPrint", dataInPrint);
-
+              if(dataInPrint.contains("&,")){
+                dataMessageFull.append(" ");
+                Log.i("entro espacio", dataInPrint);
+                //IdBufferIn.setText("-");
+              }
               String[] entrada = dataInPrint.split(",");
-              if (entrada.length > 0) {
+              if (entrada.length > 329) {
+                for(int i = 0; i < entrada.length; i++){
+                  //Log.i("entrada", entrada[i]);
+                }
+                //Log.i("entrada longitud", String.valueOf(entrada.length));
                 x = convert_float_array(entrada);
+                for (int i = 0; i < neuronas; i++) {
+                  //Log.i("neuronas ", String.valueOf(i));
+                  sumaNeurona[i] = processData(x, listPesos.get(i), arrayPolarizacion[i], i);
+                }
+                recognitionData(sumaNeurona);
               }
-              for (int i = 0; i < neuronas; i++) {
-                //Log.i("neuronas ", String.valueOf(i));
-                sumaNeurona[i] = processData(x, listPesos.get(i), arrayPolarizacion[i], i);
-              }
-              recognitionData(sumaNeurona);
-              //IdBufferIn.setText(dataInPrint);
+//              IdBufferIn.setText(dataInPrint);
               DataStringIN.delete(0, DataStringIN.length());
             }
-          }
         }
       }
     };
@@ -152,7 +155,8 @@ public class MainActivity extends AppCompatActivity {
   public float[] convert_float_array(String[] entrada){
     float[] xi = new float[330];
     for(int i = 0; i < entrada.length; i++){
-      if(entrada[i] !=  null ){
+//      Log.i("entrada", String.valueOf(entrada[i]));
+      if(!entrada[i].isEmpty()){
         xi[i] = Float.valueOf(entrada[i]);
       }
       //Log.i("xi", String.valueOf(xi[i]));
@@ -175,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void recognitionData(float[] resultadoNeurona){
-    Log.i("resultadoNeurona", String.valueOf(resultadoNeurona));
+//    Log.i("resultadoNeurona", String.valueOf(resultadoNeurona));
     // Función de activación heavside
     for(int n=0; n<neuronas;n++){
       if(resultadoNeurona[n] > 0){

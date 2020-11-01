@@ -39,7 +39,7 @@ public class ItemArrayAdapter extends ArrayAdapter<Float[]> {
 
   @Override
   public int getCount() {
-    Log.i("this.listPesos.size()", String.valueOf(this.listPesos.size()));
+    //Log.i("this.listPesos.size()", String.valueOf(this.listPesos.size()));
     return this.listPesos.size();
   }
 }

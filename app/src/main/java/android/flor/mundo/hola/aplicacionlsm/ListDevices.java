@@ -69,7 +69,7 @@ public class ListDevices extends AppCompatActivity {
       Toast.makeText(getBaseContext(), "El dispositivo no soporta Bluetooth", Toast.LENGTH_SHORT).show();
     } else {
       if (mBtAdapter.isEnabled()) {
-        Log.d(TAG, "Bluetooth Activado");
+        //Log.d(TAG, "Bluetooth Activado");
       } else {
         Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
         startActivityForResult(enableBtIntent, 1);
