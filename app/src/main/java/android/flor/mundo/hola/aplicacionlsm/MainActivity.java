@@ -103,11 +103,9 @@ public class MainActivity extends AppCompatActivity {
               Log.i("dataInPrint", dataInPrint);
               if(dataInPrint.contains("&,")){
                 dataMessageFull.append(" ");
-                Log.i("entro espacio", dataInPrint);
-                //IdBufferIn.setText("-");
               }
               String[] entrada = dataInPrint.split(",");
-              if (entrada.length > 329) {
+              /*if (entrada.length > 329) {
                 for(int i = 0; i < entrada.length; i++){
                   //Log.i("entrada", entrada[i]);
                 }
@@ -118,8 +116,8 @@ public class MainActivity extends AppCompatActivity {
                   sumaNeurona[i] = processData(x, listPesos.get(i), arrayPolarizacion[i], i);
                 }
                 recognitionData(sumaNeurona);
-              }
-//              IdBufferIn.setText(dataInPrint);
+              }*/
+              IdBufferIn.setText(dataInPrint);
               DataStringIN.delete(0, DataStringIN.length());
             }
         }
