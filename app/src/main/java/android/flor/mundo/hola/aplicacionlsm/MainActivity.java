@@ -95,16 +95,15 @@ public class MainActivity extends AppCompatActivity {
         if (msg.what == handlerState) {
           String readMessage = (String) msg.obj;
           DataStringIN.append(readMessage);
+          int startOfLineIndex = DataStringIN.indexOf("i");
           int endOfLineIndex = DataStringIN.indexOf("#");
           float[] x = new float[330];
 
           if (endOfLineIndex > 0) {
-              String dataInPrint = DataStringIN.substring(0, endOfLineIndex);
+              String dataInPrint = DataStringIN.substring(startOfLineIndex, endOfLineIndex);
               Log.i("dataInPrint", dataInPrint);
               if(dataInPrint.contains("&,")){
                 dataMessageFull.append(" ");
-                Log.i("entro espacio", dataInPrint);
-                //IdBufferIn.setText("-");
               }
               String[] entrada = dataInPrint.split(",");
               if (entrada.length > 329) {
@@ -119,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 recognitionData(sumaNeurona);
               }
-//              IdBufferIn.setText(dataInPrint);
+              //IdBufferIn.setText(dataInPrint);
               DataStringIN.delete(0, DataStringIN.length());
             }
         }
@@ -138,7 +137,9 @@ public class MainActivity extends AppCompatActivity {
     IdBorrar.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        IdBufferIn.setText("");
+        if(dataMessageFull.length() > 0 ){
+          dataMessageFull.deleteCharAt(dataMessageFull.length() - 1 );
+        }
       }
     });
     btAdapter = BluetoothAdapter.getDefaultAdapter();
