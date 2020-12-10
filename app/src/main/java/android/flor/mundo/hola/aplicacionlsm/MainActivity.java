@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         if (msg.what == handlerState) {
           String readMessage = (String) msg.obj;
           DataStringIN.append(readMessage);
-          int startOfLineIndex = DataStringIN.indexOf("i");
+          int startOfLineIndex = DataStringIN.indexOf("i") +2;
           int endOfLineIndex = DataStringIN.indexOf("#");
           float[] x = new float[330];
 
@@ -138,7 +138,9 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onClick(View view) {
         if(dataMessageFull.length() > 0 ){
+          Log.i("dataMessageFull", String.valueOf(dataMessageFull));
           dataMessageFull.deleteCharAt(dataMessageFull.length() - 1 );
+          IdBufferIn.setText(dataMessageFull);
         }
       }
     });
