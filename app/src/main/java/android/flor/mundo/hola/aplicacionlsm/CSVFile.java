@@ -14,9 +14,9 @@ public class CSVFile {
     this.inputStream = inputStream;
   }
 
-  public float[][] read(int filas, int columnas){
+  public double[][] read(int filas, int columnas){
     //List resultList = new ArrayList();
-    float[][] matrixPesos = new float[filas][columnas];
+    double[][] matrixPesos = new double[filas][columnas];
     int fila = 0;
 
     BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
@@ -25,7 +25,7 @@ public class CSVFile {
       while ((csvLine = reader.readLine()) != null) {
         String[] row = csvLine.split(",");
         for(int i=0; i < row.length; i++){
-          matrixPesos[fila][i] = Float.parseFloat(row[i]);
+          matrixPesos[fila][i] = Double.parseDouble(row[i]);
         }
         fila++;
           //resultList.add(row);

@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
   Handler bluetoothIn;
   final int handlerState = 0;
-  private float sumaTotal;
+  private Double sumaTotal;
   private int countTrama= 0;
   final int neuronas = 16;
   final int rowPesos = 16, colPesos = 330;
@@ -43,12 +43,12 @@ public class MainActivity extends AppCompatActivity {
   private StringBuilder dataMessageFull = new StringBuilder();
   private ConnectedThread MyConexionBT;
 
-  List<float[]> listPesos             = new ArrayList<float[]>();
-  private float[] arrayPolarizacion = new float[neuronas];
-  private float[] sumaNeurona = new float[neuronas];
-  private float[] letraReconocida = new float[neuronas];
-  private float[][] matrixPesos= new float[rowPesos][colPesos];
-  private float[][] matrixPolarizacion= new float[rowPolarizacion][colPolarizacion];
+  List<double[]> listPesos             = new ArrayList<double[]>();
+  private double[] arrayPolarizacion = new double[neuronas];
+  private double[] sumaNeurona = new double[neuronas];
+  private double[] letraReconocida = new double[neuronas];
+  private double[][] matrixPesos= new double[rowPesos][colPesos];
+  private double[][] matrixPolarizacion= new double[rowPolarizacion][colPolarizacion];
 
   private static final UUID BTMODULEUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
   private static String address = null;
@@ -94,49 +94,57 @@ public class MainActivity extends AppCompatActivity {
 
         if (msg.what == handlerState) {
           String readMessage = (String) msg.obj;
+          Log.i("readMessage: ", readMessage);
+
           DataStringIN.append(readMessage);
           int startOfLineIndex = DataStringIN.indexOf("a")+2;
           int endOfLineIndex = DataStringIN.indexOf("#")-1;
 
 
           if (endOfLineIndex > 0 && endOfLineIndex > startOfLineIndex) {
-            float[] x = new float[330];
-            //Log.i("DataStringIN.length(): ", String.valueOf(DataStringIN.length()));
-            Log.i("endOfLineIndex: ", String.valueOf(endOfLineIndex));
-            Log.i("startOfLineIndex: ", String.valueOf(startOfLineIndex));
+            double[] x = new double[330];
+
+            //Log.i("endOfLineIndex: ", String.valueOf(endOfLineIndex));
+            //Log.i("startOfLineIndex: ", String.valueOf(startOfLineIndex));
             String dataInPrint = DataStringIN.substring(startOfLineIndex, endOfLineIndex);
+            Log.i("dataInPrint: ", String.valueOf(dataInPrint));
             int indexFlagSubTrama = 0;
             String[] entrada = dataInPrint.split(",");
-            String[] entrada_aux = new String[330];
+            Integer[] entrada_aux = new Integer[330];
             int aux = 0;
             for(int j=0; j < entrada.length; j++) {
                 if (String.valueOf(entrada[j]).contains("i")) {
                   for (int i = 0; i < 11; i++) {
-                    entrada_aux[aux + i] = entrada[j+1+i];
-                    Log.i("entrada_aux", String.valueOf(entrada_aux[aux+i]));
-                    Log.i("entrada", String.valueOf(entrada[j+1+i]));
+                    entrada_aux[aux + i] = Integer.valueOf(entrada[j+1+i]);
+                    //Log.i("entrada_aux", String.valueOf(entrada_aux[aux+i]));
+                    //Log.i("entrada", String.valueOf(entrada[j+1+i]));
                   }
                   aux = aux + 11;
                 }
                 j=j+11;
               }
-            Log.i("entrada_aux longitud", String.valueOf(entrada_aux.length));
+            for(int i=0; i<entrada_aux.length;i++){
+              Log.i("Posicionj", String.valueOf(i));
+              Log.i("entrada_aux", String.valueOf(entrada_aux[i]));
+            }
               if(dataInPrint.contains("&,")){
                 dataMessageFull.append(" ");
               }
 
               if (entrada_aux.length > 329) {
-                x = convert_float_array(entrada_aux);
+                //x = convert_double_array(entrada_aux);
                 for (int i = 0; i < neuronas; i++) {
                   //Log.i("neuronas ", String.valueOf(i));
-                  sumaNeurona[i] = processData(x, listPesos.get(i), arrayPolarizacion[i], i);
+                  sumaNeurona[i] = processData(entrada_aux, listPesos.get(i), arrayPolarizacion[i], i);
                 }
                 recognitionData(sumaNeurona);
                 //IdBufferIn.setText(dataInPrint);
                 entrada_aux = null;
                 DataStringIN.delete(0, DataStringIN.length());
               }
-
+            //IdBufferIn.setText(dataInPrint);
+            //entrada_aux = null;
+            //DataStringIN.delete(0, DataStringIN.length());
           }
         }
       }
@@ -172,20 +180,20 @@ public class MainActivity extends AppCompatActivity {
     });
   }
 
-  public float[] convert_float_array(String[] entrada_aux){
-    float[] xi = new float[330];
+  public double[] convert_double_array(Integer[] entrada_aux){
+    double[] xi = new double[330];
     for(int i = 0; i < entrada_aux.length; i++){
 //      Log.i("entrada", String.valueOf(entrada[i]));
-      if(!entrada_aux[i].isEmpty() || entrada_aux[i] != null){
-        xi[i] = Float.valueOf(entrada_aux[i]);
+      if(entrada_aux[i] != null){
+        xi[i] = Double.valueOf(entrada_aux[i]);
       }
       //Log.i("xi", String.valueOf(xi[i]));
     }
     return xi;
   }
 
-  public static float processData(float[] xi, float[] wi, float b, int numNeurona){
-    float productoPunto = 0;
+  public static double processData(Integer[] xi, double[] wi, double b, int numNeurona){
+    double productoPunto = 0;
     //Log.i("xi length", String.valueOf(xi.length));
     //Log.i("wi length", String.valueOf(wi.length));
     //Log.i("b ", String.valueOf(b));
@@ -194,20 +202,24 @@ public class MainActivity extends AppCompatActivity {
     for(int i=0; i<n; i++){
       productoPunto += xi[i]*wi[i];
     }
+    //Log.i("productoPunto", String.valueOf(productoPunto));
     productoPunto = productoPunto + b;
+    Log.i("mas polarizacion", String.valueOf(productoPunto));
     return productoPunto;
   }
 
-  public void recognitionData(float[] resultadoNeurona){
+  public void recognitionData(double[] resultadoNeurona){
 //    Log.i("resultadoNeurona", String.valueOf(resultadoNeurona));
     // Función de activación heavside
     for(int n=0; n<neuronas;n++){
-      if(resultadoNeurona[n] > 0){
+      if(resultadoNeurona[n] >= 0){
         letraReconocida[n] = 1;
       }
       else{
         letraReconocida[n] = 0;
       }
+      Log.i("neuronas", String.valueOf(neuronas));
+      Log.i("letraReconocida", String.valueOf(letraReconocida[n]));
     }
     for(int i=0 ; i<neuronas;i++){
       if(i==0 && letraReconocida[i] == 1){
@@ -274,11 +286,11 @@ public class MainActivity extends AppCompatActivity {
         Log.i("o ",String.valueOf(letraReconocida[i]));
         dataMessageFull.append("o");
       }
-      /*else if(i==16 && letraReconocida[i] == 1){
+      else if(i==16 && letraReconocida[i] == 1){
         Log.i("p ",String.valueOf(letraReconocida[i]));
         dataMessageFull.append("p");
       }
-      else if(i==17 && letraReconocida[i] == 1){
+      /*else if(i==17 && letraReconocida[i] == 1){
         Log.i("q ",String.valueOf(letraReconocida[i]));
         dataMessageFull.append("q");
       }*/
@@ -357,7 +369,7 @@ public class MainActivity extends AppCompatActivity {
 
   private void VerificarEstadoBT() {
     String TAG = "MainActivity";
-    Log.i(TAG, "VerificarEstadoBT");
+    //Log.i(TAG, "VerificarEstadoBT");
     if(btAdapter == null) {
       Toast.makeText(getBaseContext(), "El dispositivo no soporta bluetooth", Toast.LENGTH_LONG).show();
     } else {
