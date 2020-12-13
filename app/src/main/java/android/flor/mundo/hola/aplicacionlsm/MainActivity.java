@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
   private StringBuilder dataMessageFull = new StringBuilder();
   private ConnectedThread MyConexionBT;
 
-  List<double[]> listPesos             = new ArrayList<double[]>();
+  List<double[]> listPesos             = new ArrayList<>();
   private double[] arrayPolarizacion = new double[neuronas];
   private double[] sumaNeurona = new double[neuronas];
   private double[] letraReconocida = new double[neuronas];
@@ -102,13 +102,10 @@ public class MainActivity extends AppCompatActivity {
 
 
           if (endOfLineIndex > 0 && endOfLineIndex > startOfLineIndex) {
-            double[] x = new double[330];
-
             //Log.i("endOfLineIndex: ", String.valueOf(endOfLineIndex));
             //Log.i("startOfLineIndex: ", String.valueOf(startOfLineIndex));
             String dataInPrint = DataStringIN.substring(startOfLineIndex, endOfLineIndex);
             Log.i("dataInPrint: ", String.valueOf(dataInPrint));
-            int indexFlagSubTrama = 0;
             String[] entrada = dataInPrint.split(",");
             Integer[] entrada_aux = new Integer[330];
             int aux = 0;
@@ -131,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 dataMessageFull.append(" ");
               }
 
-              if (entrada_aux.length > 329) {
+              if (entrada_aux.length == 330) {
                 //x = convert_double_array(entrada_aux);
                 for (int i = 0; i < neuronas; i++) {
                   //Log.i("neuronas ", String.valueOf(i));
@@ -139,12 +136,11 @@ public class MainActivity extends AppCompatActivity {
                 }
                 recognitionData(sumaNeurona);
                 //IdBufferIn.setText(dataInPrint);
-                entrada_aux = null;
-                DataStringIN.delete(0, DataStringIN.length());
               }
-            //IdBufferIn.setText(dataInPrint);
-            //entrada_aux = null;
-            //DataStringIN.delete(0, DataStringIN.length());
+              for(int i=0;i<entrada_aux.length;i++){
+                entrada_aux[i] = 0;
+              }
+              DataStringIN.delete(0, DataStringIN.length());
           }
         }
       }
@@ -286,10 +282,10 @@ public class MainActivity extends AppCompatActivity {
         Log.i("o ",String.valueOf(letraReconocida[i]));
         dataMessageFull.append("o");
       }
-      else if(i==16 && letraReconocida[i] == 1){
+      /*else if(i==16 && letraReconocida[i] == 1){
         Log.i("p ",String.valueOf(letraReconocida[i]));
         dataMessageFull.append("p");
-      }
+      }*/
       /*else if(i==17 && letraReconocida[i] == 1){
         Log.i("q ",String.valueOf(letraReconocida[i]));
         dataMessageFull.append("q");
