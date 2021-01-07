@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
   Handler bluetoothIn;
   final int handlerState = 0;
   private Double sumaTotal;
-  private int countTrama= 0;
   final int neuronas = 16;
   final int rowPesos = 16, colPesos = 330;
   final int rowPolarizacion = 1, colPolarizacion = 16;
@@ -129,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
               }
 
               if (entrada_aux.length == 330) {
-                //x = convert_double_array(entrada_aux);
+
                 for (int i = 0; i < neuronas; i++) {
                   //Log.i("neuronas ", String.valueOf(i));
                   sumaNeurona[i] = processData(entrada_aux, listPesos.get(i), arrayPolarizacion[i], i);
@@ -174,18 +173,6 @@ public class MainActivity extends AppCompatActivity {
         onBackPressed();
       }
     });
-  }
-
-  public double[] convert_double_array(Integer[] entrada_aux){
-    double[] xi = new double[330];
-    for(int i = 0; i < entrada_aux.length; i++){
-//      Log.i("entrada", String.valueOf(entrada[i]));
-      if(entrada_aux[i] != null){
-        xi[i] = Double.valueOf(entrada_aux[i]);
-      }
-      //Log.i("xi", String.valueOf(xi[i]));
-    }
-    return xi;
   }
 
   public static double processData(Integer[] xi, double[] wi, double b, int numNeurona){
